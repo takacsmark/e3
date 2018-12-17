@@ -1,0 +1,37 @@
+version: '3'
+
+services:
+        web:
+                build: .
+                image: takacsmark/e3:1.0
+                ports:
+                        - 8080:80
+                networks:
+                        - net1
+                        - net2
+
+        script:
+                build:
+                        context: .
+                        dockerfile: Dockerfile.script
+                image: takacsmark/e3:s
+                depends_on:
+                        - web 
+                networks:
+                        - net1
+
+        script1:
+                build:
+                        context: .
+                        dockerfile: Dockerfile.script
+                image: takacsmark/e3:s
+                depends_on:
+                        - web
+                networks:
+                        - net2
+
+networks:
+        net1:
+        net2:
+                external: true
+
